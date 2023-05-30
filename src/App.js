@@ -9,6 +9,7 @@ function App() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const [info, setInfo] = useState(false);
+	const [duplicateInfo, setDuplicateInfo] = useState(false);
 
 
 	function onSubmitFn(e){
@@ -23,19 +24,30 @@ function App() {
 			setLoading(true);
 			fetch(`https://tryagain-7om2.onrender.com/${sId}/${pId}`, options)
 			.then( async function(data){
-				setPid('');
-				setInfo(true);
-				setLoading(false);	
-				setTimeout(function(){
-					setInfo(false);
-				}, 3000);
+				var retData = await data.json();
+				setLoading(false);
+				if(retData.success == true){
+					setPid('');
+					if(retData.data){
+						setInfo(true);
+						setTimeout(function(){
+							setInfo(false);
+						}, 3000);
+					}else{
+						setDuplicateInfo(true);
+						setTimeout(function(){
+							setDuplicateInfo(false);
+						}, 3000);
+					}
+				}else{ 
+					setError(true);
+					setTimeout(function(){
+						setError(false);
+					}, 3000);
+				}
 			})
 			.catch(e => {
 				setLoading(false);
-				setError(true);
-				setTimeout(function(){
-					setError(false);
-				}, 3000);
 			});
 		}
 	}
@@ -65,11 +77,13 @@ function App() {
 						</div>
 						{!loading && <button type="submit" className="btn btn-primary" id="submit1Ref">Submit</button>}
 						{loading && <button className="btn btn-primary" type="button" id="submit2Ref">
-							<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+							<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;
 							Submitting...
 						</button>}
 						<br/>
+						<br/>
 						{info && <div>Product added successfully</div>}
+						{duplicateInfo && <div>Product already exists</div>}
 						{error && <div>Something went wrong. Try again</div>}
 					</form>
 				</div>
