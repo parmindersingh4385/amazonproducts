@@ -7,6 +7,8 @@ function App() {
 	const [pId, setPid] = useState('');
 	const [sId, setSid] = useState('girlsfab');
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
+	const [info, setInfo] = useState(false);
 
 
 	function onSubmitFn(e){
@@ -21,23 +23,28 @@ function App() {
 			setLoading(true);
 			fetch(`https://tryagain-7om2.onrender.com/${sId}/${pId}`, options)
 			.then( async function(data){
+				setPid('');
+				setInfo(true);
 				setLoading(false);	
+				setTimeout(function(){
+					setInfo(false);
+				}, 3000);
 			})
 			.catch(e => {
 				setLoading(false);
+				setError(true);
+				setTimeout(function(){
+					setError(false);
+				}, 3000);
 			});
 		}
 	}
 
 	function handlePidChange(e){
-		console.log('handlePidChange............AA');
-		console.log(e);
-		setPid(e.target.value)
+		setPid(e.target.value);
 	}
 
 	function handleSidChange(e){
-		console.log('handleSidChange............AA');
-		console.log(e);
 		setSid(e.target.value);
 	}
 
@@ -61,6 +68,9 @@ function App() {
 							<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 							Submitting...
 						</button>}
+						<br/>
+						{info && <div>Product added successfully</div>}
+						{error && <div>Something went wrong. Try again</div>}
 					</form>
 				</div>
 			</div>
