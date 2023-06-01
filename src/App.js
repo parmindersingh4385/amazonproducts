@@ -80,6 +80,7 @@ function App() {
 							<label htmlFor="selectInputRef" className="form-label">S</label>
 							<select className="form-select" id="sIdRef" name="sRef" value={sId} onChange={handleSidChange} aria-label="Default select example">
 								<option value="girlsfab">gf</option>
+								<option value="amazon deals">ad</option>
 							</select>
 						</div>
 						{!loading && <button type="submit" className="btn btn-primary" id="submit1Ref">Submit</button>}
