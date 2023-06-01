@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 function App() {
 
-	const [pId, setPid] = useState('');
+	const [pUrl, setPUrl] = useState('');
 	const [sId, setSid] = useState('girlsfab');
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
@@ -20,15 +20,18 @@ function App() {
 			method: 'POST'
 		};
 
-		if(pId != '' && sId != ''){
+		if(pUrl != '' && sId != ''){
+
+			var productId = getProductIdFromUrl(pUrl);
+
 			setLoading(true);
-			fetch(`https://tryagain-7om2.onrender.com/${sId}/${pId}`, options)
+			fetch(`https://tryagain-7om2.onrender.com/${sId}/${productId}`, options)
 			.then( async function(data){
 				var retData = await data.json();
 				setLoading(false);
-				if(retData.success == true){
-					setPid('');
+				if(retData.success == true){ 
 					if(retData.data){
+						setPUrl('');
 						setInfo(true);
 						setTimeout(function(){
 							setInfo(false);
@@ -52,12 +55,16 @@ function App() {
 		}
 	}
 
-	function handlePidChange(e){
-		setPid(e.target.value);
+	function handlePUrlChange(e){
+		setPUrl(e.target.value);
 	}
 
 	function handleSidChange(e){
 		setSid(e.target.value);
+	}
+
+	function getProductIdFromUrl(url){
+		return url.split('dp/')[1] ? url.split('dp/')[1].split('/')[0] : 'XXXXXXXX';
 	}
 
 	return (
@@ -66,8 +73,8 @@ function App() {
 				<div className="col-12 col-md-4 mx-auto">
 					<form id="formRef" onSubmit={onSubmitFn}>
 						<div className="mb-3">
-							<label htmlFor="exampleInputEmail1" className="form-label">P</label>
-							<input type="text" className="form-control" id="pIdRef" value={pId} name="pRef" aria-describedby="emailHelp" onChange={handlePidChange}/> 
+							<label htmlFor="exampleInputEmail1" className="form-label">P url</label>
+							<input type="url" className="form-control" id="pUrlRef" value={pUrl} name="pRef" aria-describedby="emailHelp" onChange={handlePUrlChange}/> 
 						</div>
 						<div className="mb-3">
 							<label htmlFor="selectInputRef" className="form-label">S</label>
