@@ -25,7 +25,7 @@ function App() {
 			var productId = getProductIdFromUrl(pUrl);
 
 			setLoading(true); 
-			fetch(`https://tryagain.up.railway.app/${sId}/${productId}`, options)
+			fetch(`https://whatsapp-messages.up.railway.app/${sId}/${productId}`, options)
 			.then( async function(data){
 				var retData = await data.json();
 				setLoading(false);
@@ -73,11 +73,11 @@ function App() {
 				<div className="col-12 col-md-4 mx-auto">
 					<form id="formRef" onSubmit={onSubmitFn}>
 						<div className="mb-3">
-							<label htmlFor="exampleInputEmail1" className="form-label">P url:-</label>
+							<label htmlFor="exampleInputEmail1" className="form-label">P</label>
 							<input type="url" className="form-control" id="pUrlRef" value={pUrl} name="pRef" aria-describedby="emailHelp" onChange={handlePUrlChange}/> 
 						</div>
 						<div className="mb-3">
-							<label htmlFor="selectInputRef" className="form-label">S:-</label>
+							<label htmlFor="selectInputRef" className="form-label">S</label>
 							<select className="form-select" id="sIdRef" name="sRef" value={sId} onChange={handleSidChange} aria-label="Default select example">
 								<option value="girlsfab">gf</option>
 								<option value="amazon deals">ad</option>
