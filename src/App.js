@@ -22,7 +22,6 @@ function App() {
 			var productId = getProductIdFromUrl(pUrl);
 
 			setLoading(true);
-			//fetch(`https://tryagain.up.railway.app/${sId}/${productId}`, options)
 			fetch(
 				`https://flipkartproducts.up.railway.app/${sId}/${productId}`,
 				options
@@ -43,11 +42,6 @@ function App() {
 								setDuplicateInfo(false);
 							}, 3000);
 						}
-					} else {
-						setError(true);
-						setTimeout(function () {
-							setError(false);
-						}, 3000);
 					}
 				})
 				.catch((e) => {
@@ -80,7 +74,7 @@ function App() {
 								htmlFor="exampleInputEmail1"
 								className="form-label"
 							>
-								P url:-
+								P
 							</label>
 							<input
 								type="url"
@@ -97,7 +91,7 @@ function App() {
 								htmlFor="selectInputRef"
 								className="form-label"
 							>
-								S:-
+								S
 							</label>
 							<select
 								className="form-select"
