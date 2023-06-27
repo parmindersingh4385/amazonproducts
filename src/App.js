@@ -59,9 +59,12 @@ function App() {
 	}
 
 	function getProductIdFromUrl(url) {
-		return url.split('dp/')[1]
-			? url.split('dp/')[1].split('/')[0]
+		return url.split('pid=')[1]
+			? url.split('pid=')[1].split('&')[0]
 			: 'XXXXXXXX';
+		/* return url.split('dp/')[1]
+			? url.split('dp/')[1].split('/')[0]
+			: 'XXXXXXXX'; */
 	}
 
 	return (
